@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroQuiz - AI-Powered Futuristic Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstaticdn.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <div class="neuro-logo">
+                <div class="logo-glow"></div>
+                <span class="logo-text">NEURO</span>
+                <span class="logo-text-sub">QUIZ</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="appContainer" class="app-container hidden">
+        <!-- Background Effects -->
+        <div class="background-effects">
+            <div class="floating-blob blob-1"></div>
+            <div class="floating-blob blob-2"></div>
+            <div class="floating-blob blob-3"></div>
+            <div class="particle-field" id="particleField"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>NeuroQuiz</span>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="sound-toggle" id="soundToggle">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="menu-btn" id="menuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Landing Screen -->
+            <section id="landingScreen" class="screen active">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-line">Test Your</span>
+                        <span class="title-line">Neural</span>
+                        <span class="title-line accent">Network</span>
+                    </h1>
+                    <p class="hero-subtitle">Challenge your mind with AI-powered quizzes. Earn XP, unlock ranks, and dominate the leaderboard.</p>
+                    
+                    <div class="landing-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="1278">0</div>
+                            <div class="stat-label">Active Players</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="245">0</div>
+                            <div class="stat-label">Quizzes Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="98">0</div>
+                            <div class="stat-label">Top Score</div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-setup">
+                        <div class="setup-group">
+                            <label class="setup-label">Category</label>
+                            <div class="setup-select">
+                                <select id="categorySelect">
+                                    <option value="tech">Technology</option>
+                                    <option value="science">Science</option>
+                                    <option value="history">History</option>
+                                    <option value="general">General</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label class="setup-label">Difficulty</label>
+                            <div class="setup-select">
+                                <select id="difficultySelect">
+                                    <option value="easy">Rookie</option>
+                                    <option value="medium">Neural</option>
+                                    <option value="hard">Quantum</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setup-group">
+                            <label class="setup-label">Questions</label>
+                            <div class="setup-select">
+                                <select id="questionCountSelect">
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="cta-button primary" id="startQuizBtn">
+                        <span>Launch NeuroQuiz</span>
+                        <i class="fas fa-rocket"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Quiz Screen -->
+            <section id="quizScreen" class="screen">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="questionCounter">1</span> / <span id="totalQuestions">10</span>
+                        </div>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Score</span>
+                            <span class="stat-value" id="currentScore">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Combo</span>
+                            <span class="stat-value streak" id="comboStreak">0x</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Time</span>
+                            <span class="stat-value" id="questionTimer">30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-content">
+                    <div class="question-container">
+                        <h2 class="question-text" id="questionText"></h2>
+                        <div class="answers-grid" id="answersGrid"></div>
+                    </div>
+                    <div class="ai-assistant">
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ai-tip" id="aiTip"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Screen -->
+            <section id="resultsScreen" class="screen">
+                <div class="results-hero">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-number" id="finalScore">0</div>
+                        <div class="score-label">Final Score</div>
+                    </div>
+                    <div class="results-stats">
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <div class="stat-number" id="correctCount">0</div>
+                                <div class="stat-label">Correct</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="accuracyPercent">0%</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <div class="stat-number" id="xpEarned">0</div>
+                                <div class="stat-label">XP Earned</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="finalRank">-</div>
+                                <div class="stat-label">Rank</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-charts">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="cta-button secondary" id="restartQuizBtn">
+                        <i class="fas fa-redo"></i> New Quiz
+                    </button>
+                    <button class="cta-button primary" id="shareResultsBtn">
+                        <i class="fas fa-share-alt"></i> Share Score
+                    </button>
+                </div>
+
+                <div class="leaderboard">
+                    <h3>Leaderboard</h3>
+                    <div class="leaderboard-list" id="leaderboardList"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="menu-header">
+                <h3>NeuroQuiz</h3>
+                <button class="close-menu" id="closeMenuBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="menu-content">
+                <div class="menu-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">
+        <div class="cursor-glow"></div>
+        <div class="cursor-core"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
