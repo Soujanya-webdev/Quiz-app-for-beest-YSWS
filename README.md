@@ -30,9 +30,9 @@ HTML, CSS, Vanilla JavaScript
 The app uses JavaScript to manage quiz state (questions, score, progress). Screens are swapped using simple DOM-based view switching. Custom and generated quiz flows both feed into a shared quiz engine.
 
 ## Screenshots
-
-(Add 2–3 screenshots: home screen, quiz screen, result screen)
-
+<img src="assets/screenshots/Screenshot 2026-05-08 120705.png" >
+<img src="assets/screenshots/Screenshot 2026-05-08 120716.png" >
+<img src="assets/screenshots/Screenshot 2026-05-08 120849.png" >
 ## Notes
 
 Built as a frontend-only project focused on interactive UI flow and state handling in the browser.
